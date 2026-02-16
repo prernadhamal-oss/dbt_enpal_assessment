@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: deals
+    description: "{{ doc('deals') }}"
+    
+    columns:
+      - name: deal_id
+        description: "{{ doc('deal_id') }}"
+        tests:
+          - not_null
+          - unique
+      
+      - name: created_at
+        description: "{{ doc('created_at') }}"
+        tests:
+          - not_null
+      
+      - name: creation_date
+        description: "{{ doc('creation_date') }}"
+      
+      - name: creation_week
+        description: "{{ doc('creation_week') }}"
+      
+      - name: creation_month
+        description: "{{ doc('creation_month') }}"
+        tests:
+          - not_null
+      
+      - name: creation_quarter
+        description: "{{ doc('creation_quarter') }}"
+      
+      - name: stage_1_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_2_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_3_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_4_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_5_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_6_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_7_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_8_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_9_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: lost_reason_id
+        description: "{{ doc('lost_reason_id') }}"
+      
+      - name: lost_reason
+        description: "{{ doc('lost_reason') }}"
+      
+      - name: is_won
+        description: "{{ doc('is_won') }}"
+      
+      - name: is_lost
+        description: "{{ doc('is_lost') }}"
+      
+      - name: sales_cycle_duration
+        description: "{{ doc('sales_cycle_duration') }}"

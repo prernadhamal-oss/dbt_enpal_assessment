@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: int_deal_milestones
+    description: "{{ doc('int_deal_milestones') }}"
+    
+    columns:
+      - name: deal_id
+        description: "{{ doc('deal_id') }}"
+        tests:
+          - not_null
+          - unique
+      
+      - name: created_at
+        description: "{{ doc('created_at') }}"
+        tests:
+          - not_null
+      
+      - name: stage_1_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_2_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_3_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_4_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_5_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_6_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_7_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_8_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+      
+      - name: stage_9_reached_at
+        description: "{{ doc('stage_reached_at') }}"
+
+      - name: lost_reason_id
+        description: "{{ doc('lost_reason_id') }}"

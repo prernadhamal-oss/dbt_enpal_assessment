@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: rep_sales_funnel_monthly
+    description: "{{ doc('rep_sales_funnel_monthly') }}"
+    
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - month
+            - funnel_step
+    
+    columns:
+      - name: month
+        description: "{{ doc('month') }}"
+        tests:
+          - not_null
+      
+      - name: kpi_name
+        description: "{{ doc('kpi_name') }}"
+        tests:
+          - not_null
+      
+      - name: funnel_step
+        description: "{{ doc('funnel_step') }}"
+        tests:
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['1', '2', '2.1', '3', '3.1', '4', '5', '6', '7', '8', '9']
+      
+      - name: deals_count
+        description: "{{ doc('deals_count') }}"
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"

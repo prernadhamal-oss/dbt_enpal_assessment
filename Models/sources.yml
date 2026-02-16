@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: pipedrive
+    database: postgres
+    schema: public
+    description: >
+      Raw Pipedrive CRM tables containing sales funnel data
+
+    tables:
+      - name: stages
+        description: Sales funnel stage definitions and ordering
+        
+      - name: activity_types
+        description: Activity type reference data with type codes and names
+        
+      - name: activity
+        description: Sales activities (calls, meetings) linked to deals and users
+        
+      - name: deal_changes
+        description: Event-level history of all changes applied to deals
+        
+      - name: users
+        description: CRM users responsible for deals and activities
+        
+      - name: fields
+        description: Field metadata including JSON-encoded value options for lookups

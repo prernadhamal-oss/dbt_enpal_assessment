@@ -1,0 +1,154 @@
+version: 2
+
+models:
+  - name: stg_deal_changes
+    description: "{{ doc('stg_deal_changes') }}"
+
+    columns:
+      - name: deal_id
+        description: "{{ doc('deal_id') }}"
+        tests:
+          - not_null
+
+      - name: change_time
+        description: "{{ doc('change_time') }}"
+        tests:
+          - not_null
+
+      - name: changed_field_key
+        description: "{{ doc('changed_field_key') }}"
+
+      - name: new_value
+        description: "{{ doc('new_value') }}"
+
+
+  - name: stg_stages
+    description: "{{ doc('stg_stages') }}"
+    
+    columns:
+      - name: stage_id
+        description: "{{ doc('stage_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: stage_name
+        description: "{{ doc('stage_name') }}"
+        tests:
+          - not_null
+
+  
+  - name: stg_activity_types
+    description: "{{ doc('stg_activity_types') }}"
+    
+    columns:
+      - name: activity_type_id
+        description: "{{ doc('activity_type_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: activity_type_code
+        description: "{{ doc('activity_type_code') }}"
+        tests:
+          - not_null
+
+      - name: activity_type_name
+        description: "{{ doc('activity_type_name') }}"
+        tests:
+          - not_null
+
+      - name: is_active
+        description: "{{ doc('is_active') }}"
+        tests:
+          - accepted_values:
+              values: ['Yes', 'No']
+
+
+  - name: stg_activity
+    description: "{{ doc('stg_activity') }}"
+    
+    columns:
+      - name: activity_id
+        description: "{{ doc('activity_id') }}"
+        tests:
+          - not_null
+
+      - name: activity_type_code
+        description: "{{ doc('activity_type_code') }}"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_activity_types')
+              field: activity_type_code
+
+      - name: assigned_to_user_id
+        description: "{{ doc('assigned_to_user_id') }}"
+        tests:
+          - relationships:
+              to: ref('stg_users')
+              field: user_id
+              config:
+                where: "assigned_to_user_id is not null"
+
+      - name: deal_id
+        description: "{{ doc('deal_id') }}"
+        tests:
+          - not_null
+          # Relationship test with stg_deal_changes ommited: ~4k activities reference deleted deals
+          # These are preserved in staging but excluded from funnel analysis
+
+      - name: is_done
+        description: "{{ doc('is_done') }}"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: due_at
+        description: "{{ doc('due_at') }}"
+
+  
+  - name: stg_users
+    description: "{{ doc('stg_users') }}"
+    
+    columns:
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: user_name
+        description: "{{ doc('user_name') }}"
+
+      - name: user_email
+        description: "{{ doc('user_email') }}"
+
+      - name: modified_at
+        description: "{{ doc('modified_at') }}"
+
+
+  - name: stg_fields
+    description: "{{ doc('stg_fields') }}"
+    
+    columns:
+      - name: field_id
+        description: "{{ doc('field_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: field_key
+        description: "{{ doc('field_key') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: field_name
+        description: "{{ doc('field_name') }}"
+        tests:
+          - not_null
+
+      - name: field_value_options
+        description: "{{ doc('field_value_options') }}"
