@@ -1,7 +1,7 @@
 enpal_assessment_project:
   outputs:
     dev:
-      dbname: postgres
+      database: postgres
       host: localhost
       pass: admin
       port: 5432

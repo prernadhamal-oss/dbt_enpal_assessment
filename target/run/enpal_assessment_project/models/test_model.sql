@@ -2,13 +2,15 @@
   
     
 
-  create  table "postgres"."public_pipedrive_analytics"."test_model__dbt_tmp"
+  create  table "postgres"."public_integration"."test_model__dbt_tmp"
   
   
     as
   
   (
-    SELECT *
+    
+
+SELECT *
 FROM "postgres"."public"."activity"
   );
   

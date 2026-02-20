@@ -1,0 +1,169 @@
+version: 2
+
+sources:
+  - name: postgres
+    database: postgres
+    schema: public
+    tables:
+      - name: activity
+      - name: activity_types
+      - name: deal_changes
+      - name: fields
+      - name: stages
+      - name: users
+
+
+models:
+  - name: intg_deal_changes
+    description: "intg_deal_changes"
+
+    columns:
+      - name: deal_id
+        description: "deal_id"
+        tests:
+          - not_null
+
+      - name: change_time
+        description: "'change_time"
+        tests:
+          - not_null
+
+      - name: changed_field_key
+        description: "changed_field_key"
+
+      - name: new_value
+        description: "new_value"
+
+  - name: intg_stages
+    description: "intg_stages"
+    
+    columns:
+      - name: stage_id
+        description: "stage_id"
+        tests:
+          - not_null
+          - unique
+
+      - name: stage_name
+        description: "stage_name"
+        tests:
+          - not_null
+
+  - name: intg_activity_types
+    description: "intg_activity_types"
+    
+    columns:
+      - name: activity_type_id
+        description: "activity_type_id"
+        tests:
+          - not_null
+          - unique
+
+      - name: activity_type_code
+        description: "activity_type_code"
+        tests:
+          - not_null
+
+      - name: activity_type_name
+        description: "activity_type_name"
+        tests:
+          - not_null
+
+      - name: is_active
+        description: "is_active"
+        tests:
+          - accepted_values:
+              values: ['Yes', 'No']
+
+  - name: intg_activity
+    description: "intg_activity"
+    
+    columns:
+      - name: activity_id
+        description: "activity_id"
+        tests:
+          - not_null
+
+      - name: activity_type_code
+        description: "activity_type_code"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('intg_activity_types')
+              field: activity_type_code
+
+      - name: assigned_to_user_id
+        description: "assigned_to_user_id"
+        tests:
+          - relationships:
+              to: ref('intg_users')
+              field: user_id
+              config:
+                where: "assigned_to_user_id is not null"
+
+      - name: deal_id
+        description: "deal_id"
+        tests:
+          - not_null
+          # Relationship test with intg_deal_changes ommited: ~4k activities reference deleted deals
+          # These are preserved in staging but excluded from funnel analysis
+
+      - name: is_done
+        description: "is_done"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: due_at
+        description: "due_at"
+
+  - name: intg_users
+    description: "intg_users"
+    
+    columns:
+      - name: user_id
+        description: "user_id"
+        tests:
+          - not_null
+          - unique
+
+      - name: user_name
+        description: "user_name"
+
+      - name: user_email
+        description: "user_email"
+
+      - name: modified_at
+        description: "modified_at"
+
+  - name: intg_fields
+    description: "intg_fields"
+    
+    columns:
+      - name: field_id
+        description: "field_id"
+        tests:
+          - not_null
+          - unique
+
+      - name: field_key
+        description: "field_key"
+        tests:
+          - not_null
+          - unique
+
+      - name: field_name
+        description: "field_name"
+        tests:
+          - not_null
+
+      - name: field_value_options
+        description: "field_value_options"
+
+
+
+
+
+
+

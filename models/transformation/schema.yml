@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: postgres
+    database: postgres
+    schema: public
+ 
+models:
+  - name: trf_deal_milestones
+    description: "trf_deal_milestones"
+    
+    columns:
+      - name: deal_id
+        description: "deal_id"
+        tests:
+          - not_null
+          - unique
+      
+      - name: created_at
+        description: "created_at"
+        tests:
+          - not_null
+      
+      - name: stage_1_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_2_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_3_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_4_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_5_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_6_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_7_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_8_reached_at
+        description: "stage_reached_at"
+      
+      - name: stage_9_reached_at
+        description: "stage_reached_at"
+
+      - name: lost_reason_id
+        description: "lost_reason_id"
